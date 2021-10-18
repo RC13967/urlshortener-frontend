@@ -72,9 +72,10 @@ function Routes() {
    <Route path="/urlTable">
      <UrlTable />
    </Route>
+   </>:""}
    <Route path="/:short">
      <RedirectToLong />
-   </Route></>:""}
+   </Route>
         <Route path="/">
           <Home />
         </Route>
