@@ -548,7 +548,7 @@ function RedirectToLong() {
       method: "GET",
     })
     .then((data)=> data.json())
-    .then((urlData)=>window.location.href = urlData.full)
+    .then((urlData)=>window.open(urlData.full, '_blank'));
   }
   useEffect(() => {
     redirect();
