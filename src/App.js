@@ -600,9 +600,10 @@ function UrlTable() {
           {urlsData.map((urlData) =>
             <tr>
               <td>{urlData.createdAt}</td>
-              <td><a href = {urlData.short} target = "_blank">{urlData.short}</a></td>
+              <td><a href = {urlData.short} target = "_blank" rel="noopener noreferrer">{urlData.short}</a></td>
               <td>{urlData.clicks}</td>
-              <td><a href = {urlData.full} target="_blank" onClick = {()=>handleClick}>{urlData.full}</a></td>
+              <td><a href = {urlData.full} target="_blank" rel="noopener noreferrer" onClick = {()=>handleClick}>
+                {urlData.full}</a></td>
             </tr>
           )}
 
