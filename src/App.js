@@ -542,13 +542,14 @@ function UrlShortener() {
   )
 }
 function RedirectToLong() {
+  const [message, setMessage] = useState('waiting');
   const {short} = useParams();
   function redirect() {
     fetch(`https://urlshortener-ranjith.herokuapp.com/${short}`, {
       method: "GET",
     })
     .then((data)=> data.json())
-    .then((urlData)=>window.open(urlData.full, '_blank'));
+    .then((urlData)=>{window.location.href = urlData.full; setMessage('none')});
   }
   useEffect(() => {
     redirect();
@@ -556,18 +557,23 @@ function RedirectToLong() {
   }, []);
   return(
     <Container className = "container">
+   {message === "waiting" ?<>
     <div className="home-content">Please wait until we redirect you to the URL</div>
     <div className="home-header">
     <Spinner animation="grow" variant="primary" />
     <Spinner animation="grow" variant="secondary" />
     <Spinner animation="grow" variant="success" />
     <Spinner animation="grow" variant="danger" />
-    </div>
+    </div></>
+    : ""}
   </Container>
   )
 }
 function UrlTable() {
   const [urlsData, setUrlsData] = useState([]);
+  const handleClick = (event) => {
+    event.preventDefault();
+  }
   function getUrlsData() {
     fetch("https://urlshortener-ranjith.herokuapp.com/urlsData", {
       method: "GET",
@@ -594,9 +600,9 @@ function UrlTable() {
           {urlsData.map((urlData) =>
             <tr>
               <td>{urlData.createdAt}</td>
-              <td><a href = {urlData.short}>{urlData.short}</a></td>
+              <td><a href = {urlData.short} target = "_blank">{urlData.short}</a></td>
               <td>{urlData.clicks}</td>
-              <td><a href = {urlData.full}>{urlData.full}</a></td>
+              <td><a href = {urlData.full} target="_blank" onClick = {()=>handleClick}>{urlData.full}</a></td>
             </tr>
           )}
 
